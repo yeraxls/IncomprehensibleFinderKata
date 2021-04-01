@@ -6,17 +6,16 @@ namespace IncomprehensibleFinderKata
 {
     public class Finder
     {
-        private List<Person> _p;
+        private List<Person> people;
 
-        public Finder(List<Person> p)
+        public Finder(List<Person> person)
         {
-            _p = p;
+            people = person ?? throw new ArgumentNullException(nameof(person));
         }
-
         public Couple Find(Criteria criteria)
         {
             var tr = new List<Couple>();
-            _p.ForEach(person => tr.AddRange(CreateModels(_p, person)));
+            people.ForEach(person => tr.AddRange(CreateModels(people, person)));
 
             if (tr.Count < 1)
                 return new Couple();
@@ -37,24 +36,10 @@ namespace IncomprehensibleFinderKata
 
         public Couple AdjustCouple(List<Couple> tr, Criteria criteria)
         {
-            Couple answer = tr[0];
-            tr.ForEach(result =>
-            {
-                switch (criteria)
-                {
-                    case Criteria.Clossest:
-                        if (result.Difference < answer.Difference)
-                            answer = result;
-                        break;
-
-                    case Criteria.Farthest:
-                        if (result.Difference > answer.Difference)
-                            answer = result;
-                        break;
-                }
-            });
-
-            return answer;
+            if(criteria == Criteria.Clossest)
+                return tr.OrderBy(e => e.Difference).FirstOrDefault();
+            else
+                return tr.OrderByDescending(e => e.Difference).FirstOrDefault();
         }
     }
 }
