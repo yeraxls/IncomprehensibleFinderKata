@@ -6,13 +6,7 @@ namespace IncomprehensibleFinderKata
 {
     public class Finder
     {
-        private List<Person> people;
-
-        public Finder(List<Person> person)
-        {
-            people = person ?? throw new ArgumentNullException(nameof(person));
-        }
-        public Couple Find(Criteria criteria)
+        public Couple Find(List<Person> people, Criteria criteria)
         {
             var tr = new List<Couple>();
             people.ForEach(person => tr.AddRange(CreateModels(people, person)));

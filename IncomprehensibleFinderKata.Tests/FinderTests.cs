@@ -10,9 +10,9 @@ namespace IncomprehensibleFinderKata.Tests
         public void Returns_Empty_Results_When_Given_Empty_List()
         {
             var list = new List<Person>();
-            var finder = new Finder(list);
+            var finder = new Finder();
 
-            var result = finder.Find(Criteria.Clossest);
+            var result = finder.Find(list, Criteria.Clossest);
 
             Assert.Null(result.PersonMinor);
             Assert.Null(result.PersonMajor);
@@ -22,9 +22,9 @@ namespace IncomprehensibleFinderKata.Tests
         public void Returns_Empty_Results_When_Given_One_Person()
         {
             var list = new List<Person>() { sue };
-            var finder = new Finder(list);
+            var finder = new Finder();
 
-            var result = finder.Find(Criteria.Clossest);
+            var result = finder.Find(list, Criteria.Clossest);
 
             Assert.Null(result.PersonMinor);
             Assert.Null(result.PersonMajor);
@@ -34,9 +34,9 @@ namespace IncomprehensibleFinderKata.Tests
         public void Returns_Closest_Two_For_Two_People()
         {
             var list = new List<Person>() { sue, greg };
-            var finder = new Finder(list);
+            var finder = new Finder();
 
-            var result = finder.Find(Criteria.Clossest);
+            var result = finder.Find(list, Criteria.Clossest);
 
             Assert.Same(sue, result.PersonMinor);
             Assert.Same(greg, result.PersonMajor);
@@ -46,9 +46,9 @@ namespace IncomprehensibleFinderKata.Tests
         public void Returns_Furthest_Two_For_Two_People()
         {
             var list = new List<Person>() { greg, mike };
-            var finder = new Finder(list);
+            var finder = new Finder();
 
-            var result = finder.Find(Criteria.Farthest);
+            var result = finder.Find(list, Criteria.Farthest);
 
             Assert.Same(greg, result.PersonMinor);
             Assert.Same(mike, result.PersonMajor);
@@ -58,9 +58,9 @@ namespace IncomprehensibleFinderKata.Tests
         public void Returns_Furthest_Two_For_Four_People()
         {
             var list = new List<Person>() { greg, mike, sarah, sue };
-            var finder = new Finder(list);
+            var finder = new Finder();
 
-            var result = finder.Find(Criteria.Farthest);
+            var result = finder.Find(list, Criteria.Farthest);
 
             Assert.Same(sue, result.PersonMinor);
             Assert.Same(sarah, result.PersonMajor);
@@ -70,9 +70,9 @@ namespace IncomprehensibleFinderKata.Tests
         public void Returns_Closest_Two_For_Four_People()
         {
             var list = new List<Person>() { greg, mike, sarah, sue };
-            var finder = new Finder(list);
+            var finder = new Finder();
 
-            var result = finder.Find(Criteria.Clossest);
+            var result = finder.Find(list, Criteria.Clossest);
 
             Assert.Same(sue, result.PersonMinor);
             Assert.Same(greg, result.PersonMajor);
@@ -81,7 +81,7 @@ namespace IncomprehensibleFinderKata.Tests
         public void Create_model()
         {
             var list = new List<Person>() { greg, mike, sue };
-            var finder = new Finder(list);
+            var finder = new Finder();
 
             var result = finder.CreateModels(list, sarah);
 
